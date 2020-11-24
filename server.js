@@ -24,8 +24,7 @@ app.use((req, res, next) => {
 
   next();
 });
-
-Ticket.router // handle requests to routes
+router // handle requests to routes
   .get("/", (_, res) => {
     Ticket.find()
       .exec()
