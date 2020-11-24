@@ -46,10 +46,8 @@ router.delete("/:id", (req, res) => {
 
 // change category
 router.patch("/:id", jsonParser, (req, res) => {
-  res.header(
-    "Access-Control-Allow-Headers",
-    "x-requested-with, x-requested-by"
-  );
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "*");
   const id = req.params.id;
   Ticket.update({ _id: id }, { $set: { category: req.body.newCategory } })
     .exec()
