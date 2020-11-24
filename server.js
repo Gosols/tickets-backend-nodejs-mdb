@@ -16,7 +16,7 @@ app.use("/tickets", router);
 // CORS handling
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "*");
+  res.header("Access-Control-Allow-Headers", "*,origin,x-requested-with");
 
   if (req.method === "OPTIONS") {
     res.header("Access-Control-Allow-Methods", "GET,POST, DELETE, PATCH");
@@ -47,7 +47,7 @@ router.delete("/:id", (req, res) => {
 // change category
 router.patch("/:id", jsonParser, (req, res) => {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "*");
+  res.header("Access-Control-Allow-Headers", "*, origin,x-requested-with");
   const id = req.params.id;
   Ticket.update({ _id: id }, { $set: { category: req.body.newCategory } })
     .exec()
