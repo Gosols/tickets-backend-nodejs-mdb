@@ -25,15 +25,15 @@ app.use((req, res, next) => {
   next();
 });
 
-// handle requests to routes
-router.get("/", (_, res) => {
-  Ticket.find()
-    .exec()
-    .then((doc) => {
-      console.log(doc);
-      res.status(200).json(doc);
-    });
-});
+Ticket.router // handle requests to routes
+  .get("/", (_, res) => {
+    Ticket.find()
+      .exec()
+      .then((doc) => {
+        console.log(doc);
+        res.status(200).json(doc);
+      });
+  });
 
 router.delete("/:id", (req, res) => {
   const id = req.params.id;
@@ -42,6 +42,17 @@ router.delete("/:id", (req, res) => {
     .then((result) => {
       res.status(200).json(result);
     });
+});
+
+// change category
+router.patch("/:id", (req, res) => {
+  Ticket.update({ _id: id }, { $set: { category: req.body.newCategory } }).then(
+    (result) => {
+      res.status(200).json({
+        message: "ticket updated.",
+      });
+    }
+  );
 });
 // post a new ticket..
 router.post("/", jsonParser, (req, res) => {
