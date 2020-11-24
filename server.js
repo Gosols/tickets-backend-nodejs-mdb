@@ -47,6 +47,7 @@ router.delete("/:id", (req, res) => {
 router.patch("/:id", (req, res) => {
   const id = req.params.id;
   Ticket.update({ _id: id }, { $set: { category: req.body.newCategory } })
+    .exec()
     .then(() => {
       res.status(200).json({
         message: "ticket updated.",
