@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require("mongoose");
 const Ticket = require("./model");
 const bodyParser = require("body-parser");
+const { json } = require("body-parser");
 
 const router = express.Router();
 const PORT = process.env.PORT || 4000;
@@ -44,7 +45,7 @@ router.delete("/:id", (req, res) => {
 });
 
 // change category
-router.patch("/:id", (req, res) => {
+router.patch("/:id", jsonParser, (req, res) => {
   const id = req.params.id;
   Ticket.update({ _id: id }, { $set: { category: req.body.newCategory } })
     .exec()
