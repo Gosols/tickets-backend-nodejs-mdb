@@ -45,13 +45,15 @@ router.delete("/:id", (req, res) => {
 
 // change category
 router.patch("/:id", (req, res) => {
+  const id = req.params.id;
   Ticket.update({ _id: id }, { $set: { category: req.body.newCategory } }).then(
-    (result) => {
+    () => {
       res.status(200).json({
         message: "ticket updated.",
       });
     }
   );
+  res.status(200).json();
 });
 // post a new ticket..
 router.post("/", jsonParser, (req, res) => {
